@@ -18,6 +18,7 @@ import static home.controllers.SessionServlet.ATT_SESSION_USER;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,6 +45,8 @@ public class MediaServlet extends HttpServlet {
 
     private List<Emprunt> listEmprunt;
 
+    private List<Media> listEmpruntMedia;
+
     private List<Emprunt> listEmpruntPanier;
 
     private List<Categorie> listcategorie;
@@ -61,16 +64,26 @@ public class MediaServlet extends HttpServlet {
 
         Membre membre = (Membre) session.getAttribute(ATT_SESSION_USER);
 
+//        listEmprunt = empruntfacade.FindByRendu(Boolean.FALSE);
+//
+//        listEmpruntMedia = listEmprunt.stream().map(Emprunt::getMediaidMedia()).collect(Collectors.toList());
+        listEmpruntPanier = empruntfacade.FindByMembre(membre);
 
+        sizePanier = listEmpruntPanier.size();
 
+        listEmpruntMedia = empruntfacade.FindByMediaEmprunt();
+        
         listcategorie = categoriefacade.findAll();
 
         idcategorie = Integer.parseInt(request.getParameter("idcategorie"));
 
         Categorie categorie = categoriefacade.find(idcategorie);
+
         listMedia = mediafacade.FindByCategorie(categorie);
-
-
+        
+        listMedia.removeAll(listEmpruntMedia);
+        
+        request.setAttribute("sizePanier", sizePanier);
         request.setAttribute("membre", membre);
         request.setAttribute("categorie", categorie);
         request.setAttribute("listMedia", listMedia);

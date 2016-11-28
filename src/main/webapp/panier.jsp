@@ -47,7 +47,9 @@
     </head>
     <body>
         <section class="body">
-
+            <c:if test="${sessionScope.sessionMembre==null}">
+                <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
+            </c:if>
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
@@ -66,7 +68,7 @@
 
                     <ul class="notifications">
                         <li>
-                            <a href="/Mediatheque/MonPanierServlet" >
+                            <a href="/Mediatheque/MonPanierServlet" class="notification-icon" >
                                 <i class="fa fa-shopping-cart"></i>
                             </a>
                         </li>              
@@ -128,15 +130,21 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="mailbox-folder.html">
+                                        <a href="/Mediatheque/EmpruntServlet">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
                                             <span>Mes emprunts</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                            <span>Rendre les médias</span>
                                         </a>
                                     </li>
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-copy" aria-hidden="true"></i>
-                                            <span>Medias</span>
+                                            <span>Médias</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <% List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listcategorie");
@@ -150,6 +158,11 @@
                                             <%
                                                 }
                                             %>	
+                                            <li>
+                                                <a href="#">
+                                                    Ajouter un média
+                                                </a>
+                                            </li>
 
                                         </ul>
 
@@ -194,7 +207,15 @@
 
 
                             <h2 class="panel-title">
+                                <%   if (request.getAttribute("listEmpruntPanier") != null) { %>
                                 Mes emprunts en panier
+                                <%
+                                } else {
+                                %>
+                                Panier Vide
+                                <%
+                                    }
+                                %>
                             </h2>
                         </header>
                         <%   if (request.getAttribute("listEmpruntPanier") != null) { %>

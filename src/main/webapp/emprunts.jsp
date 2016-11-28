@@ -1,8 +1,10 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="home.Beans.Membre"%>
+<%@page import="home.Beans.Emprunt"%>
 <%@page import="java.util.List"%>
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.MediaServlet"%>
+<%@page import="home.controllers.EmpruntServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -49,6 +51,7 @@
             <c:if test="${sessionScope.sessionMembre==null}">
                 <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
             </c:if>
+
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
@@ -69,8 +72,6 @@
                         <li>
                             <a href="/Mediatheque/MonPanierServlet" class="notification-icon" >
                                 <i class="fa fa-shopping-cart"></i>
-                                
-                                <span class="badge">${sizePanier}</span>
                             </a>
                         </li>              
                     </ul>
@@ -137,7 +138,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="mailbox-folder.html">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
                                             <span>Rendre les médias</span>
                                         </a>
@@ -159,13 +160,14 @@
                                             <%
                                                 }
                                             %>	
+
                                             <li>
                                                 <a href="#">
                                                     Ajouter un média
                                                 </a>
                                             </li>
-
                                         </ul>
+
                                     </li>
                                     <li>
                                         <a href="mailbox-folder.html">
@@ -191,57 +193,66 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Medias</h2>
+                        <h2>Mes emprunts</h2>
                     </header>
 
                     <!-- start: page -->
+
+
                     <section class="panel">
                         <header class="panel-heading">
 
 
                             <h2 class="panel-title">
-                                <% Categorie cat = (Categorie) request.getAttribute("categorie");%>
-                                <%= cat.getLibeleCat()%>
+                                Mes emprunts 
                             </h2>
                         </header>
+
                         <div class="panel-body">
-                            <table class="table table-bordered table-striped mb-none" id="datatable-default">
-                                <thead>
-                                    <tr>
-                                        <th>Titre</th>
-                                        <th>Auteur</th>
-                                        <th>Annee</th>
-                                        <th>Reference</th>
-                                        <th>Theme</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% List<Media> listMedia = (List<Media>) request.getAttribute("listMedia");
-                                        for (Media media : listMedia) {%>
-
-                                    <tr class="gradeA">
-                                        <td><%= media.getTitre()%></td>
-                                        <td><%= media.getAuteur()%></td>
-                                        <td><%= media.getAnnee()%></td>
-                                        <td><%= media.getReference()%></td>
-                                        <td><%= media.getThemeidTheme().getLibeleTheme()%></td>
-                                        <td class="actions">
-                                            <a href="/Mediatheque/PanierServlet?idMedia=<%= media.getIdMedia()%>" ><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="#" ><i class="fa fa-pencil"></i></a>
-                                            <a href="#" ><i class="fa fa-trash-o"></i></a>
-                                        </td>
-
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
+                            <div class="table-responsive">
+                                <table class="table mb-none">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Categorie</th>
+                                            <th>Theme</th>
+                                            <th>Date</th>
 
 
-                                </tbody>
-                            </table>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                                            List<Emprunt> listEmprunt = (List<Emprunt>) request.getAttribute("listEmpruntPanier");
+                                            for (Emprunt emprunt : listEmprunt) {%>
+
+                                        <tr >
+                                            <td><%= emprunt.getMediaidMedia().getTitre()%></td>
+                                            <td><%= emprunt.getMediaidMedia().getCategorieidcategorie().getLibeleCat()%></td>
+                                            <td><%= emprunt.getMediaidMedia().getThemeidTheme().getLibeleTheme()%></td>
+                                            <td><%= sdf.format(emprunt.getDate())%></td>
+
+
+
+
+                                        </tr>
+                                        <%
+
+                                            }
+                                        %>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
+
                     </section>
+
                     <!-- end: page -->
                 </section>
             </div>

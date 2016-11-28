@@ -14,6 +14,8 @@ import home.SessionBeans.MembreFacade;
 import static home.controllers.SessionServlet.ATT_SESSION_USER;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -37,7 +39,6 @@ public class PanierServlet extends HttpServlet {
     @EJB
     private MembreFacade membrefacade;
 
-
     private Emprunt emprunt;
 
     private Membre membre;
@@ -55,12 +56,15 @@ public class PanierServlet extends HttpServlet {
         HttpSession session = request.getSession();
         membre = (Membre) session.getAttribute(ATT_SESSION_USER);
 
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
         if (request.getParameter("idMedia") != null) {
             idmedia = Integer.parseInt(request.getParameter("idMedia"));
 
             media = mediafacade.find(idmedia);
 
-            emprunt = new Emprunt(1, false, true, media, membre);
+            emprunt = new Emprunt(1,date, false, true, media, membre);
 
             empruntfacade.create(emprunt);
 
@@ -75,10 +79,8 @@ public class PanierServlet extends HttpServlet {
 
             response.sendRedirect(request.getContextPath() + "/MonPanierServlet");
 
-        } 
-            
-            
-      
+        }
+
     }
 
     @Override

@@ -28,6 +28,10 @@
         <servlet-name>MonPanierServlet</servlet-name>
         <servlet-class>home.controllers.MonPanierServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmpruntServlet</servlet-name>
+        <servlet-class>home.controllers.EmpruntServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MembreServlet</servlet-name>
         <url-pattern>/MembreServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>MonPanierServlet</servlet-name>
         <url-pattern>/MonPanierServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpruntServlet</servlet-name>
+        <url-pattern>/EmpruntServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

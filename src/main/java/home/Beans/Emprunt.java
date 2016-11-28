@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Emprunt.findAll", query = "SELECT e FROM Emprunt e"),
     @NamedQuery(name = "Emprunt.findByIdEmprunt", query = "SELECT e FROM Emprunt e WHERE e.idEmprunt = :idEmprunt"),
     @NamedQuery(name = "Emprunt.findByDate", query = "SELECT e FROM Emprunt e WHERE e.date = :date"),
+    @NamedQuery(name = "Emprunt.findByMediaEmprunt", query = "SELECT e.mediaidMedia FROM Emprunt e WHERE e.rendu = false"),
     @NamedQuery(name = "Emprunt.findByMembre", query = "SELECT e FROM Emprunt e WHERE e.panier = true and e.membreidMembre = :membre"),
+    @NamedQuery(name = "Emprunt.findByMem", query = "SELECT e FROM Emprunt e WHERE e.panier = false and e.rendu = false and e.membreidMembre = :membre"),
     @NamedQuery(name = "Emprunt.findByRendu", query = "SELECT e FROM Emprunt e WHERE e.rendu = :rendu")})
 public class Emprunt implements Serializable {
 
@@ -60,6 +62,15 @@ public class Emprunt implements Serializable {
     private Membre membreidMembre;
 
     public Emprunt() {
+    }
+
+    public Emprunt(Integer idEmprunt, Date date, Boolean rendu, Boolean panier, Media mediaidMedia, Membre membreidMembre) {
+        this.idEmprunt = idEmprunt;
+        this.date = date;
+        this.rendu = rendu;
+        this.panier = panier;
+        this.mediaidMedia = mediaidMedia;
+        this.membreidMembre = membreidMembre;
     }
 
     public Emprunt(Integer idEmprunt, Boolean rendu, Boolean panier, Media mediaidMedia, Membre membreidMembre) {
