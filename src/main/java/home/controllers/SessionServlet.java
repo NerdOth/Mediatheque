@@ -57,7 +57,7 @@ public class SessionServlet extends HttpServlet {
          */
         if (erreurs.isEmpty()) {
                 session.setAttribute(ATT_SESSION_USER, membre);
-                response.sendRedirect(request.getContextPath() + "/MediaServlet?idcategorie=2");
+                response.sendRedirect(request.getContextPath() + "/HomeServlet");
             
 
         } else {

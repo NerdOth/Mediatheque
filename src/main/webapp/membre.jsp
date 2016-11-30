@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.MonPanierServlet"%>
+<%@page import="home.controllers.MembreServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -203,150 +203,64 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Acceuil</h2>
+                        <h2>Membres</h2>
                     </header>
 
                     <!-- start: page -->
 
-                    <div class="col-md-6 col-lg-12 col-xl-6">
+                    <section class="panel">
+                        <header class="panel-heading">
 
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/EmpruntServlet">
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mes emprunts </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/RendreMediaServlet">
 
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Rendre les médias </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <div class="col-md-12 col-lg-6 col-xl-6">
-                            <section class="panel panel-featured-left panel-featured-secondary">
-                                <div class="panel-body">
-                                    <div class="widget-summary">
-                                        <div class="widget-summary-col widget-summary-col-icon">
-                                            <div class="summary-icon bg-secondary">
-                                                <i class="fa fa-copy"></i>
-                                            </div>
-                                        </div>
-                                        <div class="widget-summary-col">
-                                            <div class="summary">
-                                                </br>
-                                                <div class="info">
-                                                    <strong class="amount">Médias</strong>
-                                                </div>
-                                            </div>
-                                            <div class="summary-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                            <h2 class="panel-title">
+                                Liste des membres
+                            </h2>
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Email</th>
+                                        <th>Nombre des emprunts</th>
+                                        <th>Actions</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% List<Membre> listMembre = (List<Membre>) request.getAttribute("listmembre");
+                                        for (Membre membre : listMembre) {%>
+
+                                    <tr class="gradeA">
+                                        <td><%= membre.getNom()%></td>
+                                        <td><%= membre.getPrenom()%></td>
+                                        <td><%= membre.getEmail()%></td>
+                                        <td><%= membre.getEmpruntCollection().size()%></td>
+
+
+
+                                        <td class="actions">
+
+                                            <a href="#" ><i class="fa fa-pencil"></i></a>
+                                            <a href="#" ><i class="fa fa-trash-o"></i></a>
+                                        </td>
+
+                                    </tr>
+                                    <%
+                                        }
+                                    %>
+
+
+                                </tbody>
+                            </table>
                         </div>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MonPanierServlet">
-
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mon panier</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MembreServlet">
-
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Membres</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
+                    </section>
 
 
-                        <!-- end: page -->
+                    <!-- end: page -->
                 </section>
             </div>
 

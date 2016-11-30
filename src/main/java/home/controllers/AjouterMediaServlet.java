@@ -5,41 +5,49 @@
  */
 package home.controllers;
 
+import home.Beans.Categorie;
+import home.SessionBeans.CategorieFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author machd
  */
-public class LoginServlet extends HttpServlet {
+public class AjouterMediaServlet extends HttpServlet {
 
     
 
-  
+    @EJB
+    private CategorieFacade categoriefacade;
+
+    private List<Categorie> listcategorie;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
 
-    
+        HttpSession session = request.getSession();
+
+        listcategorie = categoriefacade.findAll();
+
+        request.setAttribute("listcategorie", listcategorie);
+
+        this.getServletContext().getRequestDispatcher("/ajouter_media.jsp").forward(request, response);
+
+    }
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }

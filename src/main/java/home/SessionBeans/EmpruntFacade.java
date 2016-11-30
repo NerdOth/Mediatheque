@@ -47,6 +47,11 @@ public class EmpruntFacade extends AbstractFacade<Emprunt> {
         Query qr = em.createNamedQuery("Emprunt.findByMediaEmprunt");
         return qr.getResultList();
     }
+    
+    public List<Emprunt> FindByRendu() {
+        Query qr = em.createNamedQuery("Emprunt.findByRendu");
+        return qr.getResultList();
+    }
 
     @Override
     protected EntityManager getEntityManager() {

@@ -66,15 +66,17 @@
 
 
 
-                    <span class="separator"></span>
+                    <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
+                        <span class="separator"></span>
 
-                    <ul class="notifications">
-                        <li>
-                            <a href="/Mediatheque/MonPanierServlet" class="notification-icon" >
-                                <i class="fa fa-shopping-cart"></i>
-                            </a>
-                        </li>              
-                    </ul>
+                        <ul class="notifications">
+                            <li>
+                                <a href="/Mediatheque/MonPanierServlet" class="notification-icon" >
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                            </li>              
+                        </ul>
+                    </c:if>
 
                     <span class="separator"></span>
 
@@ -126,23 +128,29 @@
                             <nav id="menu" class="nav-main" role="navigation">
                                 <ul class="nav nav-main">
                                     <li>
-                                        <a href="index.html">
+                                        <a href="/Mediatheque/HomeServlet">
                                             <i class="fa fa-home" aria-hidden="true"></i>
                                             <span>Accueil</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="/Mediatheque/EmpruntServlet">
-                                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                                            <span>Mes emprunts</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="mailbox-folder.html">
-                                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                                            <span>Rendre les médias</span>
-                                        </a>
-                                    </li>
+                                    <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
+
+                                        <li>
+                                            <a href="/Mediatheque/EmpruntServlet">
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                                <span>Mes emprunts</span>
+                                            </a>
+                                        </li>
+                                    </c:if>
+
+                                    <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}" >
+                                        <li>
+                                            <a href="/Mediatheque/RendreMediaServlet">
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                                <span>Rendre les médias</span>
+                                            </a>
+                                        </li>
+                                    </c:if>
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-copy" aria-hidden="true"></i>
@@ -160,22 +168,27 @@
                                             <%
                                                 }
                                             %>	
+                                            <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}" >
 
-                                            <li>
-                                                <a href="#">
-                                                    Ajouter un média
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a href="/Mediatheque/AjouterMediaServlet">
+                                                        Ajouter un média
+                                                    </a>
+                                                </li>
+                                            </c:if>
                                         </ul>
 
                                     </li>
-                                    <li>
-                                        <a href="mailbox-folder.html">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
-                                            <span>Membres</span>
-                                        </a>
-                                    </li>
+                                    <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}" >
 
+                                        <li>
+                                            <a href="/Mediatheque/MembreServlet">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <span>Membres</span>
+                                            </a>
+                                        </li>
+
+                                    </c:if>
 
                                 </ul>
                             </nav>

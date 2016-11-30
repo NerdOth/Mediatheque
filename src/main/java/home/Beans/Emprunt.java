@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Emprunt.findByMediaEmprunt", query = "SELECT e.mediaidMedia FROM Emprunt e WHERE e.rendu = false"),
     @NamedQuery(name = "Emprunt.findByMembre", query = "SELECT e FROM Emprunt e WHERE e.panier = true and e.membreidMembre = :membre"),
     @NamedQuery(name = "Emprunt.findByMem", query = "SELECT e FROM Emprunt e WHERE e.panier = false and e.rendu = false and e.membreidMembre = :membre"),
-    @NamedQuery(name = "Emprunt.findByRendu", query = "SELECT e FROM Emprunt e WHERE e.rendu = :rendu")})
+    @NamedQuery(name = "Emprunt.findByRendu", query = "SELECT e FROM Emprunt e WHERE e.rendu = false")})
 public class Emprunt implements Serializable {
 
     private static final long serialVersionUID = 1L;

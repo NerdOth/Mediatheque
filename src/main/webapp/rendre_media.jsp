@@ -1,9 +1,10 @@
-<%@page import="home.Beans.Membre"%>
 <%@page import="home.Beans.Emprunt"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="home.Beans.Membre"%>
 <%@page import="java.util.List"%>
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.MonPanierServlet"%>
+<%@page import="home.controllers.RendreMediaServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -48,7 +49,7 @@
     <body>
         <section class="body">
             <c:if test="${sessionScope.sessionMembre==null}">
-                <% response.sendRedirect("/Mediatheque/signin.jsp");%>
+                <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
             </c:if>
             <!-- start: header -->
             <header class="header">
@@ -63,7 +64,6 @@
                 <div class="header-right">
 
 
-
                     <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
                         <span class="separator"></span>
 
@@ -75,6 +75,7 @@
                             </li>              
                         </ul>
                     </c:if>
+
                     <span class="separator"></span>
 
                     <div id="userbox" class="userbox">
@@ -201,152 +202,76 @@
                 </aside>
                 <!-- end: sidebar -->
 
+
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Acceuil</h2>
+                        <h2>Medias</h2>
                     </header>
 
                     <!-- start: page -->
 
-                    <div class="col-md-6 col-lg-12 col-xl-6">
-
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/EmpruntServlet">
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mes emprunts </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/RendreMediaServlet">
-
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Rendre les médias </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <div class="col-md-12 col-lg-6 col-xl-6">
-                            <section class="panel panel-featured-left panel-featured-secondary">
-                                <div class="panel-body">
-                                    <div class="widget-summary">
-                                        <div class="widget-summary-col widget-summary-col-icon">
-                                            <div class="summary-icon bg-secondary">
-                                                <i class="fa fa-copy"></i>
-                                            </div>
-                                        </div>
-                                        <div class="widget-summary-col">
-                                            <div class="summary">
-                                                </br>
-                                                <div class="info">
-                                                    <strong class="amount">Médias</strong>
-                                                </div>
-                                            </div>
-                                            <div class="summary-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                    <c:if test="${rendu !=null}">
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Média rendu
                         </div>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MonPanierServlet">
+                    </c:if>
 
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mon panier</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
+                        <section class="panel">
+                            <header class="panel-heading">
+
+
+                                <h2 class="panel-title">
+                                    Rendre les médias
+                                </h2>
+                            </header>
+                            
+                            
+                            <div class="panel-body">
+                                <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                                    <thead>
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Référence</th>
+                                            <th>Date</th>
+                                            <th>Catégorie</th>
+                                            <th>Thème</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                                            List<Emprunt> listEmprunt = (List<Emprunt>) request.getAttribute("listEmprunt");
+                                            for (Emprunt emprunt : listEmprunt) {%>
+
+                                        <tr >
+                                            <td><%= emprunt.getMediaidMedia().getTitre()%></td>
+                                            <td><%= emprunt.getMediaidMedia().getReference()%></td>
+                                            <td><%= sdf.format(emprunt.getDate())%></td>
+                                            <td><%= emprunt.getMediaidMedia().getCategorieidcategorie().getLibeleCat()%></td>
+                                            <td><%= emprunt.getMediaidMedia().getThemeidTheme().getLibeleTheme()%></td>
+                                            <td class="actions">
+                                                <a href="/Mediatheque/RendreMediaServlet?idEmprunt=<%= emprunt.getIdEmprunt()%> " ><i class="fa fa-check-square-o"></i></a>
+
+                                            </td>
+
+
+
+                                        </tr>
+                                        <%
+
+                                            }
+                                        %>
+
+
+                                    </tbody>
+                                </table>
                             </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MembreServlet">
+                        </section>
 
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Membres</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-
-
-                        <!-- end: page -->
+                    <!-- end: page -->
                 </section>
             </div>
 

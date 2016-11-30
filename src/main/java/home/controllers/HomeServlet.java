@@ -1,10 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package home.controllers;
 
 import home.Beans.Categorie;
 import home.Beans.Membre;
 import home.SessionBeans.CategorieFacade;
-import home.SessionBeans.MembreFacade;
+import static home.controllers.SessionServlet.ATT_SESSION_USER;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,17 +23,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author machd
  */
-public class MembreServlet extends HttpServlet {
-
-    @EJB
-    private MembreFacade membreFacade;
+public class HomeServlet extends HttpServlet {
 
     @EJB
     private CategorieFacade categoriefacade;
 
     private List<Categorie> listcategorie;
-
-    private List<Membre> listmembre;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,18 +38,10 @@ public class MembreServlet extends HttpServlet {
 
         listcategorie = categoriefacade.findAll();
 
-        listmembre = membreFacade.FindByFonction();
-
         request.setAttribute("listcategorie", listcategorie);
-        request.setAttribute("listmembre", listmembre);
 
-        this.getServletContext().getRequestDispatcher("/membre.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
     }
 
 }
