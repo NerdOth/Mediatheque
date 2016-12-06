@@ -1,8 +1,9 @@
 <%@page import="home.Beans.Membre"%>
+<%@page import="home.Beans.Emprunt"%>
 <%@page import="java.util.List"%>
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.MediaServlet"%>
+<%@page import="home.controllers.ModifierMediaServlet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
     <body>
         <section class="body">
             <c:if test="${sessionScope.sessionMembre==null}">
-                <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
+                <% response.sendRedirect("/Mediatheque/signin.jsp");%>
             </c:if>
             <!-- start: header -->
             <header class="header">
@@ -62,6 +63,7 @@
                 <div class="header-right">
 
 
+
                     <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
                         <span class="separator"></span>
 
@@ -69,14 +71,10 @@
                             <li>
                                 <a href="/Mediatheque/MonPanierServlet" class="notification-icon" >
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span class="badge">${sizePanier}</span>
-
                                 </a>
                             </li>              
                         </ul>
                     </c:if>
-
-
                     <span class="separator"></span>
 
                     <div id="userbox" class="userbox">
@@ -108,8 +106,6 @@
                 <!-- end: search & user box -->
             </header>
             <!-- end: header -->
-            
-            
 
             <div class="inner-wrapper">
                 <!-- start: sidebar -->
@@ -207,66 +203,71 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Medias</h2>
+                        <h2>Ajouter média</h2>
                     </header>
 
-                    
-                    <!-- start: page -->
-                    <section class="panel">
-                        <header class="panel-heading">
+                    <c:if test="${titreMedia!=null}">
 
-
-                            <h2 class="panel-title">
-                                <% Categorie cat = (Categorie) request.getAttribute("categorie");%>
-                                <%= cat.getLibeleCat()%>
-                            </h2>
-                        </header>
-                        <div class="panel-body">
-                            <table class="table table-bordered table-striped mb-none" id="datatable-default">
-                                <thead>
-                                    <tr>
-                                        <th>Titre</th>
-                                        <th>Auteur</th>
-                                        <th>Reference</th>
-                                        <th>Theme</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-
-                                        List<Media> listMedia = (List<Media>) request.getAttribute("listMedia");
-                                        for (Media media : listMedia) {%>
-
-                                    <tr class="gradeA">
-                                        <td><%= media.getTitre()%></td>
-                                        <td><%= media.getAuteur()%></td>
-                                        <td><%= media.getReference()%></td>
-                                        <td><%= media.getThemeidTheme().getLibeleTheme()%></td>
-                                        <td class="actions">
-
-                                            <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                                                <a href="/Mediatheque/PanierServlet?idMedia=<%= media.getIdMedia()%>" ><i class="fa fa-shopping-cart"></i></a>
-                                                </c:if>
-
-                                            <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}" >
-                                                <a href="/Mediatheque/ModifierMediaServlet?idMedia=<%= media.getIdMedia()%>" ><i class="fa fa-pencil"></i></a>
-                                                <a href="/Mediatheque/ModifierMediaServlet?idMedia=<%= media.getIdMedia()%>&amp;supp=1" ><i class="fa fa-trash-o"></i></a>
-                                                </c:if>
-                                        </td>
-
-                                    </tr>
-                                    <%
-                                        }
-                                    %>
-
-
-
-
-                                </tbody>
-                            </table>
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Média modifié : <strong>${titreMedia}</strong>
                         </div>
-                    </section>
+                        
+                    </c:if>
+
+                    <!-- start: page -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+
+                                    <h2 class="panel-title">Formulaire d'ajout</h2>
+                                </header>
+
+                                <form class="form-horizontal form-bordered" action="/Mediatheque/ModifierMediaServlet" method="post">
+                                    <div class="panel-body">
+                                        
+                                        <input  id="idMedia" name="idMedia" value="${media.idMedia}" type="hidden" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Titre</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="titre" name="titre" required value="${media.titre}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Référence</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="reference" name="reference" required value="${media.reference}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Auteur</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="auteur" name="auteur" required value="${media.auteur}">
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-sm-offset-3">
+                                                <button class="btn btn-primary">Modifier</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+
+
+                            </section>
+                        </div>
+                    </div>
+
+
+
                     <!-- end: page -->
                 </section>
             </div>

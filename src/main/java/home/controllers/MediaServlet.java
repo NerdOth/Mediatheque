@@ -6,19 +6,15 @@
 package home.controllers;
 
 import home.Beans.Categorie;
-import home.Beans.Categorie_;
 import home.Beans.Emprunt;
 import home.Beans.Media;
 import home.Beans.Membre;
 import home.SessionBeans.CategorieFacade;
 import home.SessionBeans.EmpruntFacade;
 import home.SessionBeans.MediaFacade;
-import home.SessionBeans.ThemeFacade;
 import static home.controllers.SessionServlet.ATT_SESSION_USER;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -39,11 +35,7 @@ public class MediaServlet extends HttpServlet {
     @EJB
     private EmpruntFacade empruntfacade;
 
-    private Media media;
-
     private List<Media> listMedia;
-
-    private List<Emprunt> listEmprunt;
 
     private List<Media> listEmpruntMedia;
 

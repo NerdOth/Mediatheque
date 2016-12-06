@@ -6,92 +6,100 @@
 package home.controllers;
 
 import home.Beans.Categorie;
+import home.Beans.Emprunt;
 import home.Beans.Media;
-import home.Beans.Theme;
 import home.SessionBeans.CategorieFacade;
+import home.SessionBeans.EmpruntFacade;
 import home.SessionBeans.MediaFacade;
-import home.SessionBeans.ThemeFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author machd
  */
-public class AjouterMediaServlet extends HttpServlet {
+public class ModifierMediaServlet extends HttpServlet {
 
     @EJB
     private MediaFacade mediafacade;
-
     @EJB
     private CategorieFacade categoriefacade;
-    
-    @EJB
-    private ThemeFacade themefacade;
-    
-    private Theme mytheme;
-    
-    private Media media;
 
     private List<Categorie> listcategorie;
+
+    private int idmedia;
+
+    private int idcategorie;
+
+    private Media media;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        if (request.getParameter("idMedia") != null) {
 
-        listcategorie = categoriefacade.findAll();
+            idmedia = Integer.parseInt(request.getParameter("idMedia"));
 
-        request.setAttribute("listcategorie", listcategorie);
+            media = mediafacade.find(idmedia);
 
-        this.getServletContext().getRequestDispatcher("/ajouter_media.jsp").forward(request, response);
+            idcategorie = media.getCategorieidcategorie().getIdcategorie();
+
+            if (request.getParameter("supp") != null) {
+
+                mediafacade.remove(media);
+
+                response.sendRedirect(request.getContextPath() + "/MediaServlet?idcategorie=" + idcategorie);
+
+            } else {
+
+                listcategorie = categoriefacade.findAll();
+
+                request.setAttribute("listcategorie", listcategorie);
+
+                request.setAttribute("media", media);
+
+                this.getServletContext().getRequestDispatcher("/modifier_media.jsp").forward(request, response);
+
+            }
+
+        }
 
     }
-   
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if(request.getParameter("titre")!=null && request.getParameter("reference")!=null && request.getParameter("auteur")!=null && request.getParameter("theme")!=null)
-        {
+
+        if (request.getParameter("titre") != null && request.getParameter("reference") != null && request.getParameter("auteur") != null) {
+
+            int idMedia = Integer.parseInt(request.getParameter("idMedia"));
             String titre = request.getParameter("titre");
             String reference = request.getParameter("reference");
             String auteur = request.getParameter("auteur");
-            int idtheme = Integer.parseInt(request.getParameter("theme"));
-            
-            mytheme = themefacade.find(idtheme);
-            
-            media = new Media();
-            
-            media.setIdMedia(1);
+
+            media = mediafacade.find(idMedia);
+
             media.setAuteur(auteur);
             media.setTitre(titre);
             media.setReference(reference);
-            media.setThemeidTheme(mytheme);
-            media.setCategorieidcategorie(mytheme.getCategorieidcategorie());
-            
-            mediafacade.create(media);
-            
-            request.setAttribute("titreMedia", titre);
+
+            mediafacade.edit(media);
 
             listcategorie = categoriefacade.findAll();
 
+            request.setAttribute("titreMedia", titre);
+
             request.setAttribute("listcategorie", listcategorie);
 
-            this.getServletContext().getRequestDispatcher("/ajouter_media.jsp").forward(request, response);
-          
+            this.getServletContext().getRequestDispatcher("/modifier_media.jsp").forward(request, response);
+
         }
-        
-        
     }
 
-    
 }

@@ -39,6 +39,7 @@ public class EmpruntServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
 
         Membre membre = (Membre) session.getAttribute(ATT_SESSION_USER);

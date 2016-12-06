@@ -206,9 +206,80 @@
                         <h2>Ajouter média</h2>
                     </header>
 
-                    <!-- start: page -->
+                    <c:if test="${titreMedia!=null}">
 
-                   
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Média ajouté : <strong>${titreMedia}</strong>
+                        </div>
+                        
+                    </c:if>
+
+                    <!-- start: page -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+
+                                    <h2 class="panel-title">Formulaire d'ajout</h2>
+                                </header>
+
+                                <form class="form-horizontal form-bordered" action="/Mediatheque/AjouterMediaServlet" method="post">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Titre</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="titre" name="titre" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Référence</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="reference" name="reference" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Auteur</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="auteur" name="auteur" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Thème</label>
+                                            <div class="col-md-6">
+                                                <select id="theme" name="theme" data-plugin-selectTwo class="form-control populate" required>
+                                                    <c:forEach var="categorie" items="${listcategorie}">
+                                                        <optgroup label="${categorie.libeleCat}">
+                                                            <c:forEach var="theme" items="${categorie.themeCollection}">
+                                                                <option value="${theme.idTheme}">${theme.libeleTheme}</option>
+                                                            </c:forEach>
+                                                        </optgroup>
+                                                    </c:forEach>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-sm-offset-3">
+                                                <button class="btn btn-primary">Ajouter</button>
+                                                <button type="reset" class="btn btn-default">Inistialiser</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+
+
+                            </section>
+                        </div>
+                    </div>
+
+
 
                     <!-- end: page -->
                 </section>

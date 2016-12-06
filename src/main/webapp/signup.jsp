@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html class="fixed">
     <head>
@@ -45,23 +44,14 @@
             <div class="center-sign">
 
 
-                <c:if test="${membreNom!=null}">
-
-                    <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-
-                        Bonjour <strong> ${membreNom}</strong>, Vous pouvez maintenant vous connecter
-
-                    </div>
-
-                </c:if>
-
                 <div class="panel panel-sign">
                     <div class="panel-title-sign mt-xl text-right">
-                        <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Se connecter</h2>
+                        <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> S'inscrire</h2>
                     </div>
                     <div class="panel-body">
-                        <form action="/Mediatheque/SessionServlet" method="post">
+                        
+                        <form action="/Mediatheque/SignupServlet" method="post">
+                            
                             <div class="form-group mb-lg">
                                 <label>Nom </label>
                                 <div class="input-group input-group-icon">
@@ -69,6 +59,30 @@
                                     <span class="input-group-addon">
                                         <span class="icon icon-lg">
                                             <i class="fa fa-user"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-lg">
+                                <label>Prenom </label>
+                                <div class="input-group input-group-icon">
+                                    <input name="prenom" type="text" class="form-control input-lg" />
+                                    <span class="input-group-addon">
+                                        <span class="icon icon-lg">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-lg">
+                                <label>Email </label>
+                                <div class="input-group input-group-icon">
+                                    <input name="email" type="email" class="form-control input-lg" />
+                                    <span class="input-group-addon">
+                                        <span class="icon icon-lg">
+                                            <i class="fa fa-envelope"></i>
                                         </span>
                                     </span>
                                 </div>
@@ -91,52 +105,35 @@
                             <div class="row">
 
                                 <div class="col-sm-12 text-right">
-                                    <button type="submit" class="btn btn-primary hidden-xs">Se connecter</button>
+                                    <button type="submit" class="btn btn-primary hidden-xs">S'inscrire</button>
                                 </div>
                             </div>
-
-
-
-
-                            <p class="text-center">Vous n'avez pas encore de compte? <a href="/Mediatheque/SignupServlet">S'inscrire!</a>
-
 
                         </form>
                     </div>
                 </div>
-              
-                <c:if test="${erreurs!=null}">
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+               
+            </div>
+        </section>
+        <!-- end: page -->
 
-                        ${erreur}
+        <!-- Vendor -->
+        <script src="assets/vendor/jquery/jquery.js"></script>
+        <script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+        <script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+        <script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+        <script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 
-                    </div>
-                </c:if>
+        <!-- Theme Base, Components and Settings -->
+        <script src="assets/javascripts/theme.js"></script>
 
+        <!-- Theme Custom -->
+        <script src="assets/javascripts/theme.custom.js"></script>
 
+        <!-- Theme Initialization Files -->
+        <script src="assets/javascripts/theme.init.js"></script>
 
-                </div>
-            </section>
-            <!-- end: page -->
-
-            <!-- Vendor -->
-            <script src="assets/vendor/jquery/jquery.js"></script>
-            <script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-            <script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
-            <script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
-            <script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-            <script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
-            <script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-
-            <!-- Theme Base, Components and Settings -->
-            <script src="assets/javascripts/theme.js"></script>
-
-            <!-- Theme Custom -->
-            <script src="assets/javascripts/theme.custom.js"></script>
-
-            <!-- Theme Initialization Files -->
-            <script src="assets/javascripts/theme.init.js"></script>
-
-        </body>
-    </html>
+    </body>
+</html>
