@@ -21,6 +21,9 @@ public class ThemeFacade extends AbstractFacade<Theme> {
 
     @Override
     protected EntityManager getEntityManager() {
+        em.flush();
+        em.clear();
+        em.getEntityManagerFactory().getCache().evictAll();
         return em;
     }
 

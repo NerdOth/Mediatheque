@@ -31,6 +31,9 @@ public class MediaFacade extends AbstractFacade<Media> {
 
     @Override
     protected EntityManager getEntityManager() {
+        em.flush();
+        em.clear();
+        em.getEntityManagerFactory().getCache().evictAll();
         return em;
     }
 

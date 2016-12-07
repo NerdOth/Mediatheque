@@ -48,6 +48,10 @@
         <servlet-name>SignupServlet</servlet-name>
         <servlet-class>home.controllers.SignupServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModifierMembreServlet</servlet-name>
+        <servlet-class>home.controllers.ModifierMembreServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MembreServlet</servlet-name>
         <url-pattern>/MembreServlet</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>SignupServlet</servlet-name>
         <url-pattern>/SignupServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifierMembreServlet</servlet-name>
+        <url-pattern>/ModifierMembreServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

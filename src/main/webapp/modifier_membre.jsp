@@ -1,10 +1,9 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="home.Beans.Membre"%>
 <%@page import="home.Beans.Emprunt"%>
 <%@page import="java.util.List"%>
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.EmpruntServlet"%>
+<%@page import="home.controllers.ModifierMembreServlet"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -48,9 +47,8 @@
     <body>
         <section class="body">
             <c:if test="${sessionScope.sessionMembre==null}">
-                <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
+                <% response.sendRedirect("/Mediatheque/signin.jsp");%>
             </c:if>
-
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
@@ -76,7 +74,6 @@
                             </li>              
                         </ul>
                     </c:if>
-
                     <span class="separator"></span>
 
                     <div id="userbox" class="userbox">
@@ -205,65 +202,70 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Mes emprunts</h2>
+                        <h2>Modifier membre</h2>
                     </header>
 
-                    <!-- start: page -->
+                    <c:if test="${nomMembre!=null}">
 
-
-                    <section class="panel">
-                        <header class="panel-heading">
-
-
-                            <h2 class="panel-title">
-                                Mes emprunts 
-                            </h2>
-                        </header>
-
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table mb-none">
-                                    <thead>
-                                        <tr>
-                                            <th>Titre</th>
-                                            <th>Categorie</th>
-                                            <th>Theme</th>
-                                            <th>Date</th>
-
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%
-                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-                                            List<Emprunt> listEmprunt = (List<Emprunt>) request.getAttribute("listEmpruntPanier");
-                                            for (Emprunt emprunt : listEmprunt) {%>
-
-                                        <tr >
-                                            <td><%= emprunt.getMediaidMedia().getTitre()%></td>
-                                            <td><%= emprunt.getMediaidMedia().getCategorieidcategorie().getLibeleCat()%></td>
-                                            <td><%= emprunt.getMediaidMedia().getThemeidTheme().getLibeleTheme()%></td>
-                                            <td><%= sdf.format(emprunt.getDate())%></td>
-
-
-
-
-                                        </tr>
-                                        <%
-
-                                            }
-                                        %>
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Membre modifié : <strong>${nomMembre}</strong>
                         </div>
+                        
+                    </c:if>
 
-                    </section>
+                    <!-- start: page -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+
+                                    <h2 class="panel-title">Formulaire de modification</h2>
+                                </header>
+
+                                <form class="form-horizontal form-bordered" action="/Mediatheque/ModifierMembreServlet" method="post">
+                                    <div class="panel-body">
+                                        
+                                        <input  id="idMembre" name="idMembre" value="${membre.idMembre}" type="hidden" >
+                                        
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Nom</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="nom" name="nom" required value="${membre.nom}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Prenom</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="prenom" name="prenom" required value="${membre.prenom}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="inputDefault">Email</label>
+                                            <div class="col-md-6">
+                                                <input type="email" class="form-control" id="email" name="email" required value="${membre.email}">
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-sm-offset-3">
+                                                <button class="btn btn-primary">Modifier</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+
+
+                            </section>
+                        </div>
+                    </div>
+
+
 
                     <!-- end: page -->
                 </section>

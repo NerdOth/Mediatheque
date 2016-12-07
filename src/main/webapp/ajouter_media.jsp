@@ -4,16 +4,17 @@
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
 <%@page import="home.controllers.AjouterMediaServlet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html class="fixed">
     <head>
 
         <!-- Basic -->
-        <meta charset="UTF-8">
 
         <title>Mediatheque</title>
+
+
 
 
         <!-- Mobile Metas -->
@@ -97,7 +98,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href="/Mediatheque/LogoutServlet"><i class="fa fa-power-off"></i> Se dÃ©connecter</a>
+                                    <a role="menuitem" tabindex="-1" href="/Mediatheque/LogoutServlet"><i class="fa fa-power-off"></i> Se déconnecter</a>
                                 </li>
                             </ul>
                         </div>
@@ -144,14 +145,14 @@
                                         <li>
                                             <a href="/Mediatheque/RendreMediaServlet">
                                                 <i class="fa fa-cog" aria-hidden="true"></i>
-                                                <span>Rendre les mÃ©dias</span>
+                                                <span>Rendre les médias</span>
                                             </a>
                                         </li>
                                     </c:if>
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-copy" aria-hidden="true"></i>
-                                            <span>MÃ©dias</span>
+                                            <span>Médias</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <% List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listcategorie");
@@ -169,7 +170,7 @@
 
                                                 <li>
                                                     <a href="/Mediatheque/AjouterMediaServlet">
-                                                        Ajouter un mÃ©dia
+                                                        Ajouter un média
                                                     </a>
                                                 </li>
                                             </c:if>
@@ -203,16 +204,16 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Ajouter mÃ©dia</h2>
+                        <h2>Ajouter média</h2>
                     </header>
 
                     <c:if test="${titreMedia!=null}">
 
                         <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
-                            MÃ©dia ajoutÃ© : <strong>${titreMedia}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Média ajouté : <strong>${titreMedia}</strong>
                         </div>
-                        
+
                     </c:if>
 
                     <!-- start: page -->
@@ -235,9 +236,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="inputDefault">RÃ©fÃ©rence</label>
+                                            <label class="col-md-3 control-label" for="inputDefault">Référence</label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="reference" name="reference" required>
+                                                <input type="text" data-plugin-masked-input data-input-mask="A9999" placeholder="A1623" class="form-control" id="product-key" name="reference" required>
                                             </div>
                                         </div>
 
@@ -249,7 +250,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">ThÃ¨me</label>
+                                            <label class="col-md-3 control-label">Thème</label>
                                             <div class="col-md-6">
                                                 <select id="theme" name="theme" data-plugin-selectTwo class="form-control populate" required>
                                                     <c:forEach var="categorie" items="${listcategorie}">
@@ -268,7 +269,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-sm-offset-3">
                                                 <button class="btn btn-primary">Ajouter</button>
-                                                <button type="reset" class="btn btn-default">Inistialiser</button>
+                                                <button type="reset" class="btn btn-default">Initialiser</button>
                                             </div>
                                         </div>
                                     </footer>
@@ -297,9 +298,8 @@
 
             <!-- Specific Page Vendor -->
             <script src="assets/vendor/select2/select2.js"></script>
-            <script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
-            <script src="assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
-            <script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+            <script src="assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
+
 
 
             <!-- Theme Base, Components and Settings -->

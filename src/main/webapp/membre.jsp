@@ -4,14 +4,13 @@
 <%@page import="home.Beans.Media"%>
 <%@page import="home.Beans.Categorie"%>
 <%@page import="home.controllers.MembreServlet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html class="fixed">
     <head>
 
         <!-- Basic -->
-        <meta charset="UTF-8">
 
         <title>Mediatheque</title>
 
@@ -97,7 +96,7 @@
                                 <li class="divider"></li>
 
                                 <li>
-                                    <a role="menuitem" tabindex="-1" href="/Mediatheque/LogoutServlet"><i class="fa fa-power-off"></i> Se dÃ©connecter</a>
+                                    <a role="menuitem" tabindex="-1" href="/Mediatheque/LogoutServlet"><i class="fa fa-power-off"></i> Se déconnecter</a>
                                 </li>
                             </ul>
                         </div>
@@ -144,14 +143,14 @@
                                         <li>
                                             <a href="/Mediatheque/RendreMediaServlet">
                                                 <i class="fa fa-cog" aria-hidden="true"></i>
-                                                <span>Rendre les mÃ©dias</span>
+                                                <span>Rendre les médias</span>
                                             </a>
                                         </li>
                                     </c:if>
                                     <li class="nav-parent">
                                         <a>
                                             <i class="fa fa-copy" aria-hidden="true"></i>
-                                            <span>MÃ©dias</span>
+                                            <span>Médias</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <% List<Categorie> listCategorie = (List<Categorie>) request.getAttribute("listcategorie");
@@ -169,7 +168,7 @@
 
                                                 <li>
                                                     <a href="/Mediatheque/AjouterMediaServlet">
-                                                        Ajouter un mÃ©dia
+                                                        Ajouter un média
                                                     </a>
                                                 </li>
                                             </c:if>
@@ -205,6 +204,15 @@
                     <header class="page-header">
                         <h2>Membres</h2>
                     </header>
+
+                    <c:if test="${nomMembre!=null}">
+
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            Membre supprimé : <strong>${nomMembre}</strong>
+                        </div>
+
+                    </c:if>
 
                     <!-- start: page -->
 
@@ -244,8 +252,8 @@
 
                                         <td class="actions">
 
-                                            <a href="#" ><i class="fa fa-pencil"></i></a>
-                                            <a href="#" ><i class="fa fa-trash-o"></i></a>
+                                            <a href="/Mediatheque/ModifierMembreServlet?idMembre=<%= membre.getIdMembre()%>" ><i class="fa fa-pencil"></i></a>
+                                            <a href="/Mediatheque/MembreServlet?idMembre=<%= membre.getIdMembre()%>"><i class="fa fa-trash-o"></i></a>
                                         </td>
 
                                     </tr>

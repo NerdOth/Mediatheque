@@ -29,11 +29,28 @@ public class MembreServlet extends HttpServlet {
 
     private List<Membre> listmembre;
 
+    private Membre membre;
+    
+    private int idMembre;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+
+        if (request.getParameter("idMembre") != null) {
+
+            idMembre = Integer.parseInt(request.getParameter("idMembre"));
+
+            membre = membreFacade.find(idMembre);
+
+            String nom = membre.getNom();
+
+            membreFacade.remove(membre);
+
+            request.setAttribute("nomMembre", nom);
+        }
 
         listcategorie = categoriefacade.findAll();
 
@@ -49,6 +66,8 @@ public class MembreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
     }
 
 }

@@ -1,10 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html class="fixed">
     <head>
 
         <!-- Basic -->
-        <meta charset="UTF-8">
 
         <title>Mediatheque</title>
 
@@ -55,7 +54,7 @@
                             <div class="form-group mb-lg">
                                 <label>Nom </label>
                                 <div class="input-group input-group-icon">
-                                    <input name="nom" type="text" class="form-control input-lg" />
+                                    <input name="nom" type="text" class="form-control input-lg" required />
                                     <span class="input-group-addon">
                                         <span class="icon icon-lg">
                                             <i class="fa fa-user"></i>
@@ -67,7 +66,7 @@
                             <div class="form-group mb-lg">
                                 <label>Prenom </label>
                                 <div class="input-group input-group-icon">
-                                    <input name="prenom" type="text" class="form-control input-lg" />
+                                    <input name="prenom" type="text" class="form-control input-lg" required />
                                     <span class="input-group-addon">
                                         <span class="icon icon-lg">
                                             <i class="fa fa-user"></i>
@@ -79,7 +78,7 @@
                             <div class="form-group mb-lg">
                                 <label>Email </label>
                                 <div class="input-group input-group-icon">
-                                    <input name="email" type="email" class="form-control input-lg" />
+                                    <input name="email" type="email" class="form-control input-lg" required />
                                     <span class="input-group-addon">
                                         <span class="icon icon-lg">
                                             <i class="fa fa-envelope"></i>
@@ -93,7 +92,7 @@
                                     <label class="pull-left">Mot de passe</label>
                                 </div>
                                 <div class="input-group input-group-icon">
-                                    <input name="motdepasse" type="password" class="form-control input-lg" />
+                                    <input name="motdepasse" type="password" class="form-control input-lg"  required />
                                     <span class="input-group-addon">
                                         <span class="icon icon-lg">
                                             <i class="fa fa-lock"></i>

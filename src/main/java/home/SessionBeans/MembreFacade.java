@@ -37,6 +37,9 @@ public class MembreFacade extends AbstractFacade<Membre> {
 
     @Override
     protected EntityManager getEntityManager() {
+        em.flush();
+        em.clear();
+        em.getEntityManagerFactory().getCache().evictAll();
         return em;
     }
 

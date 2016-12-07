@@ -55,6 +55,9 @@ public class EmpruntFacade extends AbstractFacade<Emprunt> {
 
     @Override
     protected EntityManager getEntityManager() {
+        em.flush();
+        em.clear();
+        em.getEntityManagerFactory().getCache().evictAll();
         return em;
     }
 

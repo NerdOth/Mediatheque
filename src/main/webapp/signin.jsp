@@ -1,11 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html class="fixed">
     <head>
 
         <!-- Basic -->
-        <meta charset="UTF-8">
 
         <title>Mediatheque</title>
 
@@ -48,7 +47,7 @@
                 <c:if test="${membreNom!=null}">
 
                     <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
                         Bonjour <strong> ${membreNom}</strong>, Vous pouvez maintenant vous connecter
 
@@ -107,7 +106,7 @@
               
                 <c:if test="${erreurs!=null}">
                     <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 
                         ${erreur}
 
