@@ -52,6 +52,14 @@
         <servlet-name>ModifierMembreServlet</servlet-name>
         <servlet-class>home.controllers.ModifierMembreServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ParamServlet</servlet-name>
+        <servlet-class>home.controllers.ParamServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifierParamServlet</servlet-name>
+        <servlet-class>home.controllers.ModifierParamServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MembreServlet</servlet-name>
         <url-pattern>/MembreServlet</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>ModifierMembreServlet</servlet-name>
         <url-pattern>/ModifierMembreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ParamServlet</servlet-name>
+        <url-pattern>/ParamServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifierParamServlet</servlet-name>
+        <url-pattern>/ModifierParamServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

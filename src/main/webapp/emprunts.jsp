@@ -136,7 +136,7 @@
 
                                         <li>
                                             <a href="/Mediatheque/EmpruntServlet">
-                                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
                                                 <span>Mes emprunts</span>
                                             </a>
                                         </li>
@@ -184,6 +184,12 @@
                                             <a href="/Mediatheque/MembreServlet">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                                 <span>Membres</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/Mediatheque/ParamServlet">
+                                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                                <span>Paramétrage</span>
                                             </a>
                                         </li>
 

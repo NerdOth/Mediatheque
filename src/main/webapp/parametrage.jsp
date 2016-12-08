@@ -1,9 +1,7 @@
-<%@page import="home.Beans.Membre"%>
-<%@page import="home.Beans.Emprunt"%>
 <%@page import="java.util.List"%>
-<%@page import="home.Beans.Media"%>
+<%@page import="home.Beans.Theme"%>
 <%@page import="home.Beans.Categorie"%>
-<%@page import="home.controllers.MonPanierServlet"%>
+<%@page import="home.controllers.ParamServlet"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -47,7 +45,7 @@
     <body>
         <section class="body">
             <c:if test="${sessionScope.sessionMembre==null}">
-                <% response.sendRedirect("/Mediatheque/signin.jsp");%>
+                <% response.sendRedirect("/Mediatheque/signin.jsp"); %>
             </c:if>
             <!-- start: header -->
             <header class="header">
@@ -62,7 +60,6 @@
                 <div class="header-right">
 
 
-
                     <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
                         <span class="separator"></span>
 
@@ -74,6 +71,7 @@
                             </li>              
                         </ul>
                     </c:if>
+
                     <span class="separator"></span>
 
                     <div id="userbox" class="userbox">
@@ -206,181 +204,187 @@
                 </aside>
                 <!-- end: sidebar -->
 
+
+
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Acceuil</h2>
+                        <h2>Paramétrage</h2>
+
+
                     </header>
 
-                    <!-- start: page -->
+                    
+                    <div class="row">
 
-                    <div class="col-md-6 col-lg-12 col-xl-6">
+                        <div class="col-md-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="fa fa-caret-down"></a>
+                                    </div>
 
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/EmpruntServlet">
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mes emprunts </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
+                                    <h2 class="panel-title">Ajouter catégorie</h2>
+                                </header>
+                                <form class="form-horizontal form-bordered" action="/Mediatheque/ParamServlet" method="post">
+
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="inputDefault">Libellé Catégorie</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="categorie" name="categorie" required>
                                             </div>
                                         </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/RendreMediaServlet">
 
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-check"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Rendre les médias </strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
+                                    </div>
+
+                                    <footer class="panel-footer">
+
+                                        <button class="btn btn-primary">Ajouter</button>
+
+                                    </footer>
+
+                                </form>   
+                            </section>
+                        </div>
+
+                        <div class="col-md-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="fa fa-caret-down"></a>
+                                    </div>
+
+                                    <h2 class="panel-title">Ajouter thème</h2>
+                                </header>
+
+                                <form class="form-horizontal form-bordered" action="/Mediatheque/ParamServlet" method="post">
+
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="inputDefault">Libellé Thème</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="theme" name="theme" required>
                                             </div>
                                         </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <div class="col-md-12 col-lg-6 col-xl-6">
-                            <section class="panel panel-featured-left panel-featured-secondary">
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Catégorie</label>
+                                            <div class="col-md-8">
+                                                <select id="theme" name="choisCategorie" data-plugin-selectTwo class="form-control populate" required>
+                                                    <c:forEach var="categorie" items="${listcategorie}">
+
+                                                        <option value="${categorie.idcategorie}">${categorie.libeleCat}</option>
+                                                    </c:forEach>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <footer class="panel-footer">
+
+                                        <button class="btn btn-primary">Ajouter</button>
+
+                                    </footer>
+
+                                </form>   
+
+                            </section>
+                        </div>
+                    </div>    
+                    
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="fa fa-caret-down"></a>
+                                    </div>
+
+                                    <h2 class="panel-title">Catégorie</h2>
+                                </header>
                                 <div class="panel-body">
-                                    <div class="widget-summary">
-                                        <div class="widget-summary-col widget-summary-col-icon">
-                                            <div class="summary-icon bg-secondary">
-                                                <i class="fa fa-copy"></i>
-                                            </div>
-                                        </div>
-                                        <div class="widget-summary-col">
-                                            <div class="summary">
-                                                </br>
-                                                <div class="info">
-                                                    <strong class="amount">Médias</strong>
-                                                </div>
-                                            </div>
-                                            <div class="summary-footer">
-                                            </div>
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-none">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Libellé</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <c:forEach items="${listcategorie}" var="categorie" varStatus="var" >
+                                                    <tr>
+                                                        <td>${var.index +1}</td>
+                                                        <td>${categorie.libeleCat}</td>
+                                                        <td class="actions">
+                                                            <a href="/Mediatheque/ModifierParamServlet?idcat=${categorie.idcategorie}"><i class="fa fa-pencil"></i></a>
+                                                            <a href="/Mediatheque/ModifierParamServlet?idcat=${categorie.idcategorie}&amp;supp=1"><i class="fa fa-trash-o"></i></a>
+                                                        </td>                                                
+                                                    </tr>
+                                                </c:forEach>
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </section>
                         </div>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Membre'}" >
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MonPanierServlet">
 
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Mon panier</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/MembreServlet">
+                        <div class="col-md-6">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="fa fa-caret-down"></a>
+                                    </div>
 
-                                    <section class="panel panel-featured-left panel-featured-tertiary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-tertiary">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Membres</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
-                        <c:if test="${sessionScope.sessionMembre.fonction=='Admin'}">
-                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                <a href="/Mediatheque/ParamServlet">
+                                    <h2 class="panel-title">Thème</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-none ">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Libellé</th>
+                                                    <th>Catégorie</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
 
-                                    <section class="panel panel-featured-left panel-featured-primary">
-                                        <div class="panel-body">
-                                            <div class="widget-summary">
-                                                <div class="widget-summary-col widget-summary-col-icon">
-                                                    <div class="summary-icon bg-primary">
-                                                        <i class="fa fa-cog"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="widget-summary-col">
-                                                    <div class="summary">
-                                                        </br>
-                                                        <div class="info">
-                                                            <strong class="amount">Paramétrage</strong>
-                                                        </div>
-                                                    </div>
-                                                    <div class="summary-footer">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                </a>
-                            </div>
-                        </c:if>
+                                            <tbody>
+                                                <c:forEach items="${listtheme}" var="theme" varStatus="var" >
+                                                    <tr>
+                                                        <td>${var.index +1}</td>
+                                                        <td>${theme.libeleTheme }</td>
+                                                        <td>${theme.categorieidcategorie.libeleCat }</td>
 
+                                                        <td class="actions">
+                                                            <a href="/Mediatheque/ModifierParamServlet?idtheme=${theme.idTheme}"><i class="fa fa-pencil"></i></a>
+                                                            <a href="/Mediatheque/ModifierParamServlet?idtheme=${theme.idTheme}&amp;supp=1"><i class="fa fa-trash-o"></i></a>
+                                                        </td>                                                
+                                                    </tr>
+                                                </c:forEach>
 
-                        <!-- end: page -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    
+
                 </section>
+
+
+
+                <!-- end: page -->
             </div>
 
 
